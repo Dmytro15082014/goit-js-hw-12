@@ -150,3 +150,22 @@ main:has(.back-link) {
 .sl-image>img{
   width: 1280px;
 }
+.show-more{
+  display: block;
+  margin: 32px auto 0px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 125px;
+  height: 40px;
+  background-color: #4e75ff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: #fff;
+  transition: background-color, cubic-bezier(0.075, 0.82, 0.165, 1), 250ms;
+}
+.show-more:hover{
+  background-color: #6c8cff;
+}

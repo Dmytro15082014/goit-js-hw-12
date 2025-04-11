@@ -40,7 +40,7 @@ main:has(.back-link) {
   height: 48px;
   display: inline-block;
   position: relative;
-  left: 45%;
+  left: 48%;
 }
 
 .loader::after,

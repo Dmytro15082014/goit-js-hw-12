@@ -7,7 +7,9 @@ const loadMoreBtn = document.querySelector(".show-more");
 const galleryConstructor = new SimpleLightbox('.gallery-card a', { captionsData: "alt", captionDelay: "250" });
 
 export default function createGallery(images){
-    gallery.insertAdjacentHTML("beforeend", images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
+    gallery.insertAdjacentHTML("beforeend",
+        images
+            .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
        `<li class="image-item">
             <div class="gallery-card"><a href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}" class="image"/></a></div>
             <ul class="image-info">

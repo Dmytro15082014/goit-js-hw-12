@@ -41,6 +41,7 @@ main:has(.back-link) {
   display: inline-block;
   position: relative;
   left: 48%;
+  margin-top: 24px;
 }
 
 .loader::after,

@@ -9,6 +9,7 @@ const loadMoreBtn = document.querySelector(".show-more");
 const LC_KEY = "save-search";
 let page = 1;
 let lastPage;
+loadSaveSettings(page);
 
 searchForm.addEventListener("submit", searchImage);
 loadMoreBtn.addEventListener("click", handleLoadMore);
@@ -16,6 +17,7 @@ loadMoreBtn.addEventListener("click", handleLoadMore);
 async function searchImage(e) {
     e.preventDefault();
     showLoader();
+    hideLoadMoreButton();
     clearGallery();
 
     const query = searchForm.elements[0].value.toLowerCase().trim();
@@ -34,6 +36,8 @@ async function searchImage(e) {
 
         if (!(data.hits.length)) {
             iziToast.show(messageError);
+            localStorage.removeItem(LC_KEY);
+            hideLoadMoreButton();            
             return;
         }
         if (page < lastPage) {
@@ -65,7 +69,15 @@ async function handleLoadMore(e) {
             localStorage.removeItem(LC_KEY);
             page = 1;
             iziToast.show(lastPageMessage);            
-        };            
+        };
+        
+        const card = document.querySelector(".image-item");
+        const heightScroll = card.getBoundingClientRect().height;
+        window.scrollBy({
+            left: 0,
+            top: heightScroll * 2,
+            behavior: "smooth",
+        });
     } catch (error) {
         messageError.message = error.message;
         iziToast.show(messageError);
@@ -74,6 +86,24 @@ async function handleLoadMore(e) {
         loadMoreBtn.disabled = false;
     };
 };
+
+async function loadSaveSettings(page){
+    if (localStorage.length > 0) {
+        try {
+            const { data } = await getImagesByQuery(localStorage.getItem(LC_KEY), page);
+            createGallery(data.hits);
+            if (page < (data.totalHits / data.hits.length)) {
+                showLoadMoreButton();
+            }
+            if (page === (data.totalHits / data.hits.length)) {
+                iziToast.show(lastPageMessage);
+            }
+        } catch (error) {
+            messageError.message = error.message;
+            iziToast.show(messageError);
+        }
+    }
+}
 
 const messageError = {
     title: "Error",

@@ -102,10 +102,9 @@ async function loadSaveSettings(page) {
         } catch (error) {
             messageError.message = error.message;
             iziToast.show(messageError);
-        } finally {
-            hideLoader();
         }
-    }
+    };
+    hideLoader();
 }
 
 const messageError = {

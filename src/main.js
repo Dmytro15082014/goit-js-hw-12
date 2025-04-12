@@ -88,7 +88,6 @@ async function handleLoadMore(e) {
 };
 
 async function loadSaveSettings(page) {
-    showLoader();
     if (localStorage.length > 0) {
         try {
             const { data } = await getImagesByQuery(localStorage.getItem(LC_KEY), page);
@@ -104,7 +103,6 @@ async function loadSaveSettings(page) {
             iziToast.show(messageError);
         }
     };
-    hideLoader();
 }
 
 const messageError = {
